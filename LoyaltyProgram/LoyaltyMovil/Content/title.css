@@ -1,0 +1,81 @@
+﻿@import 'https://fonts.googleapis.com/css?family=Open+Sans:300';
+
+h1 {
+    font-family: 'Open Sans';
+    font-weight: 300;
+    text-transform: uppercase;
+    font-size: 3.7em;
+}
+
+h2 {
+    font-family: 'Open Sans';
+    font-weight: 600;
+    color: #173A64;
+    font-size: 1.1em;
+}
+
+.hhh2 {
+    font-family: 'Open Sans';
+    font-weight: 600;
+    color: #173A64;
+    font-size: 0.8em;
+}
+
+.page-header {
+    border: none;
+    text-align: center;
+}
+
+    .page-header h1 {
+        margin-bottom: 6px;
+    }
+
+    .page-header h2 {
+        margin-top: 0;
+    }
+
+.icon-bar {
+    font-size: 1.3em;
+    position: relative;
+    color: #ff9933;
+}
+
+    .icon-bar:after,
+    .icon-bar:before {
+        display: block;
+        content: '';
+        width: 70px;
+        height: 1px;
+        background: #ccc;
+        position: absolute;
+        left: 35px;
+        top: 50%;
+        margin-top: -1px;
+    }
+
+    .icon-bar:before {
+        left: auto;
+        right: 35px;
+    }
+
+@media only screen and (max-width: 380px) {
+    #logoImg {
+        height: 42px;
+        width: 95px;
+    }
+
+    #title {
+        font-size: 11px;
+    }
+}
+
+@media only screen and (max-width: 330px) {
+    #logoImg {
+        height: 40px;
+        width: 90px;
+    }
+
+    #title {
+        font-size: 8px;
+    }
+}

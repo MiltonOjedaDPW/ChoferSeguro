@@ -1,0 +1,360 @@
+﻿@model Caucedo.LoyaltyMovil.Models.dataVM
+
+@{
+    ViewBag.Title = "Recompensas";
+}
+
+
+<style>
+    body {
+        background: rgba(180, 180, 180, 0.05);
+    }
+
+    .puntos {
+        position: absolute;
+        left: 35%;
+        top: -20px;
+        border-radius: 50%;
+    }
+
+    .totalPuntos {
+        position: absolute;
+        left: 43%;
+        top: -20px;
+        border-radius: 50%;
+    }
+
+    .colorCaucedo {
+        color: #173A64;
+    }
+
+    .clickable {
+        cursor: pointer;
+    }
+</style>
+
+
+
+@*<body style="padding-top:0px; background-color: rgba(143,143,143,0.2);">*@
+<!-- <img src="img/Azul oscuro 1.jpg" class="img-fluid" alt=""> -->
+
+<div class="container">
+    <nav class="navbar mb-2 sticky-top" style="background-color: #173A64">
+        <img class="navbar-brand" src="~/img/Logo Caucedo blanco.png" alt="" width="120" height="45">
+        <h5 id="title" style="float: right; font-size: 13.2px;" class="text-white">Programa de Lealtad</h5>
+    </nav>
+
+    <div class="container mb-2">
+        <div class="row">
+            <a href="@ViewBag.linkBack" class="btn btn-link p-0"><i class="fa fa-reply" aria-hidden="true"></i> ATRÁS</a>
+            @*<div class="col align-self-end">
+                    <button class="btn btn-warning btn-sm font-weight-bold pull-right">
+                        <i class="fas fa-medal" aria-hidden="true"></i>
+                        Record Visitas  <span class="badge badge-light">@Model.chofer.PUNTOS_VISITAS_RECORD</span>
+                    </button>
+                </div>*@
+        </div>
+        <div class="row">
+            <div class="col-3 pr-0 border-right">
+                <img src="~/img/user_icon.png" name="aboutme" width="55" height="55" class="rounded-circle">
+            </div>
+            <div class="col-9 mt-2">
+                <p class="text-muted text-wrap h6" style="font-size:18px;"><i class="fa fa-user" aria-hidden="true"></i> @Model.chofer.CHOFER</p>
+                <h5 class="text-muted mb-0"><i class="fa fa-id-card" aria-hidden="true"></i> <span id="rnttChofer">@Model.chofer.RNTT</span></h5>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="page-header">
+                <span class="icon-bar">
+                    <i class="fa fa-calendar" aria-hidden="true"></i>
+                </span>
+                @foreach (var item in Model.Campania)
+                {
+                    if (item.ACTIVO)
+                    {
+                        <h2>@item.CAMPANIA</h2>
+                        <label class="hhh2">Fecha de canje: @item.STR_FECHA_CANJE</label>
+                    }
+
+                }
+            </div>
+        </div>
+    </div>
+
+
+    @{
+    }
+
+    <div class="jumbotron salto mb-2" style="padding:10px 8px;" data-title="Programa de Lealtad">
+        <div class="row">
+            <div class="col 12 col-md-4">
+                <div class="card-counter success salto" data-title="Lista de Artículos para canje">
+                    <i class="fa fa-trophy" aria-hidden="true"></i>
+                    <span class="count-numbers">@Model.chofer.PUNTOS_BALANCE</span>
+                    <span class="count-name">Puntos Acumulados</span>
+                </div>
+            </div>
+            <div class="col-12 col-md-4">
+                <div class="card-counter primary">
+                    <i class="fa fa-plus-circle" aria-hidden="true"></i>
+                    <span class="count-numbers">@Model.chofer.PUNTOS_GANADOS</span>
+                    <span class="count-name">Puntos Generados</span>
+                </div>
+            </div>
+            <div class="col-12 col-md-4">
+                <div class="card-counter danger clickable" data-toggle="modal" data-target="@(Model.chofer.PUNTOS_DESCONTADOS < 0?"#exampleModalCenter" : "")">
+                    <i class="fa fa-minus-circle" aria-hidden="true"></i>
+                    <span class="count-numbers">@Model.chofer.PUNTOS_DESCONTADOS</span>
+                    <span class="count-name">Puntos Descontados</span>
+                </div>
+            </div>
+            <div class="col-12 col-md-4">
+                <div class="card-counter warning clickable" data-toggle="modal" data-target="@(Model.PuntosCanjeados < 0?"#exampleModalCenterCanjes" : "")">
+                    <i class="fa fa-gift" aria-hidden="true"></i>
+                    <span class="count-numbers">@Model.PuntosCanjeados</span>
+                    <span class="count-name">Puntos Canjeados</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="jumbotron" style="padding:10px 8px;">
+        <div class="row">
+            <div class="col-5">
+                <a href="https://outlook.office365.com/owa/calendar/ChoferAmigoDPWCaucedo@dpworld.com/bookings/" target="_blank" class="btn btn-info"><i class="fas fa-gifts"></i> Agendar Canje</a>
+            </div>
+            <div class="col-7">
+                <button class="btn btn-light pull-right" data-toggle="modal" data-target="#modalLastYear"><i class="fa fa-table" aria-hidden="true"></i> Resumen Ene-Jun 2020</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            @foreach (var item in Model.Recompensa)
+            {
+                if (item.ACTIVO)
+                {
+                    <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-3">
+                        <div class="card shadow">
+
+                            <div class="card-body">
+                                <img class="card-img-top img-responsive" src="@ViewBag.root@item.IMAGEN" alt="Card image cap">
+                            </div>
+                            <div class="card-footer">
+                                <h5 class="card-title mb-0">@item.NOMBRE</h5>
+                                <p class="card-text mb-0" style="white-space:pre-line;">
+                                    @item.DESCRIPCION
+                                    <small class="d-none"><strong>@item.STOCK unidades disponibles</strong></small>
+                                </p>
+                                <button class="btn btn-warning btn-sm pull-right"><i class="fa fa-star" aria-hidden="true"></i> @item.VALOR_PUNTOS puntos</button>
+                            </div>
+                        </div>
+                    </div>
+                }
+
+            }
+
+        </div>
+    </div>
+</div>
+<br>
+<br>
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title text-danger" id="exampleModalCenterTitle"><i class="fa fa-minus-circle" aria-hidden="true"></i> Puntos Descontados</h5>
+                <button type="button" class="close text-danger" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <table id="RegistroPorChofer" class="table table-bordered table-sm mb-0" style="font-size:12px;">
+                    <thead class="thead-dark">
+                        <tr>
+                            @*<th>ORIGEN</th>*@
+                            <th>MOTIVO</th>
+                            <th>PUNTOS</th>
+                            <th>FECHA</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.ListaDeIncidencias)
+                        {
+                            <tr>
+                                <td>@item.MOTIVO</td>
+                                <td>@item.PUNTOS</td>
+                                <td>@item.STR_FECHA</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+            @*<div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+                </div>*@
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="exampleModalCenterCanjes" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterCanjesTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title text-warning" id="exampleModalCenterTitle"><i class="fa fa-gift" aria-hidden="true"></i> Recompensas canjeadas</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <table id="RegistroPorChofer" class="table table-bordered table-sm mb-0" style="font-size:12px;">
+                    <thead class="thead-dark">
+                        <tr>
+                            @*<th>ORIGEN</th>*@
+                            <th>Recompensa</th>
+                            <th>Campaña</th>
+                            <th>Puntos</th>
+                            <th>Fecha</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.ListaDeCanjes)
+                        {
+                            <tr>
+                                <td>@string.Join(" - ", item.listDetalle)</td>
+                                <td>@item.MOTIVO</td>
+                                <td>@item.PUNTOS</td>
+                                <td>@item.STR_FECHA</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modalLastYear" tabindex="-1" role="dialog" aria-labelledby="modalLastYearTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title text-dark" id="exampleModalCenterTitle"><i class="fa fa-table" aria-hidden="true"></i> Resumen 2019</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body pt-2">
+                <label class="h6 text-dark">Puntos</label>
+                <table id="RegistroPorChofer" class="table table-bordered table-sm mb-1" style="font-size:12px;">
+                    <thead>
+                        <tr>
+                            @*<th>ORIGEN</th>*@
+                            <th class="table-primary text-primary">Generados</th>
+                            <th class="table-success text-success">Acumulados</th>
+                            <th class="table-danger text-danger">Descontados</th>
+                            <th class="table-warning text-warning">Canjeados</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="text-center">
+                            <td class="text-primary">@Model.chofer.PUNTOS_GANADOS_LY</td>
+                            <td class="text-success">@Model.chofer.PUNTOS_BALANCE_LY</td>
+                            <td class="text-danger">@Model.chofer.PUNTOS_DESCONTADOS_LY</td>
+                            <td class="text-warning">@Model.PuntosCanjeados_LY</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <label class="h6 text-dark">Infracciones</label>
+                <table id="RegistroPorChofer" class="table table-bordered table-sm table-danger mb-1" style="font-size:12px;">
+                    <thead class="text-danger">
+                        <tr>
+                            <th>MOTIVO</th>
+                            <th>PUNTOS</th>
+                            <th>FECHA</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.ListaDeIncidencias_LY)
+                        {
+                            <tr>
+                                <td>@item.MOTIVO</td>
+                                <td>@item.PUNTOS</td>
+                                <td>@item.STR_FECHA</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+                <label class="h6 text-dark">Canjes</label>
+                <table id="RegistroPorChofer" class="table table-bordered table-sm table-warning mb-0" style="font-size:12px;">
+                    <thead class="text-warning">
+                        <tr>
+                            @*<th>ORIGEN</th>*@
+                            <th>Recompensa</th>
+                            <th>Campaña</th>
+                            <th>Puntos</th>
+                            <th>Fecha</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.ListaDeCanjes_LY)
+                        {
+                            <tr>
+                                <td>@string.Join(" - ", item.listDetalle)</td>
+                                <td>@item.MOTIVO</td>
+                                <td>@item.PUNTOS</td>
+                                <td>@item.STR_FECHA</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+
+    <link href="~/Content/title.css" rel="stylesheet" />
+    <link href="~/Content/card.css" rel="stylesheet" />
+    <script src="~/Scripts/app/movil.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            var choferRNTT = $('#rnttChofer').text(); console.log(choferRNTT);
+
+            @*GETREGISTROPORCHOFER = "@Url.Action("GetRegistroPorChofer", "Home")?rntt=" + choferRNTT
+
+            console.log("getregistros " + GETREGISTROPORCHOFER);
+
+
+            $('#RegistroPorChofer').DataTable({
+                "ajax": {
+                    "url": GETREGISTROPORCHOFER,
+                    "type": "GET",
+                    "datatype": "json"
+                },
+                "columns": [
+                     //{ "data": "ORIGEN" },
+                     { "data": "MOTIVO" },
+                     { "data": "PUNTOS" },
+                     { "data": "STR_FECHA" },
+                ],
+                "paging": false,
+                "ordering": false,
+                "info": false,
+                "filter": false
+            });*@
+        });
+
+    </script>
+}
+

@@ -1,0 +1,221 @@
+﻿@model Caucedo.LoyaltyProgram.Models.dataVM
+
+@{
+    Layout = null;
+    //var chofer = Model.Chofer.Where(m => m.RNTT == "198").ToList().FirstOrDefault();
+}
+
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="~/Content/title.css" rel="stylesheet" />
+    <link href="~/Content/card.css" rel="stylesheet" />
+    <style>
+        .puntos {
+            position: absolute;
+            left: 35%;
+            top: -20px;
+            border-radius: 50%;
+        }
+
+        .totalPuntos {
+            position: absolute;
+            left: 43%;
+            top: -20px;
+            border-radius: 50%;
+        }
+
+        .colorCaucedo {
+            color: #173A64;
+        }
+    </style>
+
+    <title>Recompensas</title>
+</head>
+
+<body style="padding-top:0px; background-color: rgba(143,143,143,0.2);">
+    <!-- <img src="img/Azul oscuro 1.jpg" class="img-fluid" alt=""> -->
+
+    <div class="container">
+        <nav class="navbar mb-2 sticky-top" style="background-color: #173A64">
+            <img class="navbar-brand" src="~/img/Logo Caucedo blanco.png" alt="" width="140" height="50">
+            <h5 id="title" style="float: right; font-size: 15px;" class="text-white">Programa de Lealtad</h5>
+        </nav>
+
+        <div>
+            @*<h4>@chofer.PUNTOS_VISITAS_RECORD Visitas sin Incidentes</h4>*@
+            @*<i class="fas fa-medal"></i>*@
+            <h5><span class="badge badge-warning text-white pull-right"> @Model.chofer.PUNTOS_VISITAS_RECORD</span><span class="badge badge-light text-warning pull-right"> Visitas sin incidentes</span></h5>
+            <br />
+            @*<div class="col-12 col-md-4">
+                <div class="card-counter warning hover">
+                    <i class="fa fa-plus-circle" aria-hidden="true"></i>
+                    <span class="count-numbers">@chofer.PUNTOS_VISITAS_RECORD</span>
+                    <span class="count-name">Visitas sin Incidentes</span>
+                </div>
+            </div>*@
+        </div>
+
+        <div class="container mb-2">
+            <div class="row">
+                <!-- <div class="col-1"></div> -->
+                <div class="col-4">
+                    <img src="~/img/user_icon.png" name="aboutme" width="80" height="80" class="rounded-circle">
+                </div>
+                <div class="col-7 mt-2">
+                    <p class="text-muted h5 text-wrap"><i class="fa fa-user" aria-hidden="true"></i> @Model.chofer.CHOFER</p>
+                    <h5 class="text-muted"><i class="fa fa-id-card" aria-hidden="true"></i> @Model.chofer.RNTT</h5>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="page-header">
+                    <span class="icon-bar">
+                        <i class="fa fa-calendar" aria-hidden="true"></i>
+                    </span>
+                    @foreach (var item in Model.Campania)
+                    {
+                        <h2>@(item.ACTIVO ? @item.CAMPANIA : "")</h2>
+                    }
+                </div>
+            </div>
+        </div>
+        
+
+        @{           
+        }
+
+        <div class="jumbotron salto" data-title="Programa de Lealtad">
+
+            <div class="row">
+            
+                    <div class="col-12 col-md-4">
+                        <div class="card-counter primary">
+                            <i class="fa fa-plus-circle" aria-hidden="true"></i>
+                            <span class="count-numbers">@Model.chofer.PUNTOS_GANADOS</span>
+                            <span class="count-name">Puntos Generados</span>
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-md-4">
+                        <div class="card-counter danger">
+                            <i class="fa fa-minus-circle" aria-hidden="true"></i>
+                            <span class="count-numbers">@Model.chofer.PUNTOS_DESCONTADOS</span>
+                            <span class="count-name">Puntos Descontados</span>
+                        </div>
+                    </div>
+
+                    <div class="col 12 col-md-4">
+                        <div class="card-counter success salto" data-title="Lista de Artículos para canje">
+                            <i class="fa fa-trophy" aria-hidden="true"></i>
+                            <span class="count-numbers">@Model.chofer.PUNTOS_BALANCE</span>
+                            <span class="count-name">Puntos Acumulados</span>
+                        </div>
+                    </div>
+                
+
+                @*<div class="col-6 col-md-4 mb-3">
+                        <div class="card border-info mx-sm-1 p-3">
+                            <div class="card border-info shadow text-info p-3 puntos">
+                                <span class="fa fa-check"
+                                      aria-hidden="true"></span>
+                            </div>
+                            <div class="text-info text-center mt-3">
+                                <h5>Puntos Generados</h5>
+                            </div>
+                            <div class="text-info text-center mt-2">
+                                <h1>85</h1>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6 col-md-4 mb-3">
+                        <div class="card border-danger mx-sm-1 p-3">
+                            <div class="card border-danger shadow text-danger p-3 puntos">
+                                <span class="fa fa-question-circle" aria-hidden="true"></span>
+                            </div>
+                            <div class="text-danger text-center mt-3">
+                                <h5>Puntos Descontados</h5>
+                            </div>
+                            <div class="text-danger mt-2">
+                                <h1 class="text-center">15</h1>
+                                <i style="right: 30px;" class="fa fa-eye position-absolute" aria-hidden="true"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-4">
+                        <div class="card border-success mx-sm-1 p-3">
+                            <div class="card border-success shadow text-success p-3 totalPuntos">
+                                <span class="fa fa-trophy"
+                                      aria-hidden="true"></span>
+                            </div>
+                            <div class="text-success text-center mt-3">
+                                <h5>Total Puntos Acumulados</h5>
+                            </div>
+                            <div class="text-success text-center mt-2 salto" data-title="Lista de Artículos para canje">
+                                <h1>70</h1>
+                            </div>
+                        </div>
+                    </div>*@
+
+
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                @foreach (var item in Model.Recompensa)
+                {
+                    if (item.ACTIVO)
+                    {
+                        <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-3">
+                            <div class="card shadow">
+                                <img class="card-img-top img-responsive" src="@ViewBag.root@item.IMAGEN" alt="Card image cap">
+                                <div class="card-body">
+                                    
+                                </div>
+                                <div class="card-footer">
+                                    <h5 class="card-title">@item.NOMBRE</h5>
+                                    <p class="card-text">
+                                        @item.DESCRIPCION
+                                        <br />
+                                        <small class="d-none"><strong>@item.STOCK unidades disponibles</strong></small>
+                                    </p>
+                                    <button class="btn btn-warning btn-sm pull-right"><i class="fa fa-star" aria-hidden="true"></i> @item.VALOR_PUNTOS puntos</button>
+                                </div>
+                            </div>
+                        </div>
+                    }
+
+                }
+
+            </div>
+        </div>
+    </div>
+    <br>
+    <br>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+            crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+            integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+            crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+            integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+            crossorigin="anonymous"></script>
+    <script src="~/Scripts/app/movil.js"></script>
+
+</body>
+</html>

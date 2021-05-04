@@ -1,0 +1,30 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    @*<meta name="viewport" content="width=device-width, initial-scale=1.0">*@
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
+    <title>@ViewBag.Title - Loyalty Program </title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body style="padding-top:0px;">
+    <div class="container body-content" style="padding-top:0px;">
+        @RenderBody()
+        <br />
+        <br />
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    <link href="~/Content/font-awesome.min.css" rel="stylesheet" />
+    @*<link href="~/Content/DataTables/media/css/dataTables.bootstrap4.min.css" rel="stylesheet" />*@
+    <link href="~/Content/DataTables/css/dataTables.bootstrap4.min.css" rel="stylesheet" />
+    @*<script src="~/Scripts/DataTables/media/js/jquery.dataTables.min.js"></script>*@
+    <script src="~/Scripts/DataTables/jquery.dataTables.min.js"></script>
+    @*<script src="~/Scripts/DataTables/media/js/dataTables.bootstrap4.min.js"></script>*@
+    <script src="~/Scripts/DataTables/dataTables.bootstrap4.min.js"></script>
+    @RenderSection("scripts", required: false)
+
+</body>
+</html>

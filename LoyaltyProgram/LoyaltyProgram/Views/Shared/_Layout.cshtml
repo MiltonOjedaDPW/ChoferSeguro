@@ -1,0 +1,59 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro de Incidencias</title>
+    @Styles.Render("~/Content/css")
+    @Styles.Render("~/Content/tempusdominus_css")
+    @Scripts.Render("~/bundles/modernizr")
+    @{ 
+        var user = HttpContext.Current.User;
+        var asd = HttpContext.Current.User.Identity.Name;
+    }
+</head>
+<body style="padding-top:0px; background-color: rgba(143,143,143,0.2);">
+    <nav class="navbar navbar-expand navbar-light fixed border-bottom" style="background-color:white">
+        <div class="container">
+            <a class="navbar-brand" href="@Url.Action("Index", "Home")">
+                <img src="~/img/DPW_Caucedo_transparente.png" width="170" height="60" />
+            </a>
+            <div class="collapse navbar-collapse d-flex" id="navbarSupportedContent">
+                <div class="navbar-nav list-inline mx-auto justify-content-center">
+                    <a class="nav-link" style="font-size:25px; cursor:pointer;" href="@Url.Action("Index", "Home")"><strong>Registro de Incidencias</strong></a>
+                </div>
+                <button type="button" class="btn btn-default my-2 my-md-0" disabled><i class="fa fa-user-o" aria-hidden="true"></i> @user.Identity.Name</button>
+            </div>
+        </div>
+    </nav>
+    <div class="container-fluid body-content">
+        @RenderBody()
+        @*<hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+        </footer>*@
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/moment")
+    @Scripts.Render("~/bundles/tempusdominus_js")
+    @*@Scripts.Render("~/bundles/confirm")*@
+    @Scripts.Render("~/bundles/myScripts")
+    <link href="~/Content/font-awesome.min.css" rel="stylesheet" />
+    <script src="https://kit.fontawesome.com/5fe489e2c9.js"></script>
+    <link href="~/Content/DataTables/media/css/dataTables.bootstrap4.min.css" rel="stylesheet" />
+    <link href="~/Content/jQuer_Confirm/jquery-confirm.css" rel="stylesheet" />
+    <link href="~/Content/jQuer_Confirm/jquery-confirm.min.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap-fileinput/css/fileinput.css" rel="stylesheet" />
+    <script src="~/Scripts/fileinput.min.js"></script>
+    <script src="~/Scripts/locales/es.js"></script>
+    <script src="~/Scripts/plugins/piexif.js"></script>
+    <script src="~/Scripts/plugins/purify.min.js"></script>
+    <script src="~/Scripts/plugins/sortable.min.js"></script>
+    <script src="~/Scripts/DataTables/media/js/jquery.dataTables.min.js"></script>
+    <script src="~/Scripts/DataTables/media/js/dataTables.bootstrap4.min.js"></script>
+    <script src="~/Scripts/app/jquery-confirm.js"></script>
+    @RenderSection("scripts", required: false)
+</body>
+</html>

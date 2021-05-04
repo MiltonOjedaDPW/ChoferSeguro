@@ -1,0 +1,363 @@
+﻿@model Caucedo.LoyaltyProgram.Models.ReglasYEventos
+
+@{
+    ViewBag.Title = "Registrar";
+}
+<div class="container">
+    <br />
+    <h2 class="text-primary"><i class="fa fa-book" aria-hidden="true"></i> Registrar Incidencia</h2>
+    <br />
+
+    <div class="row" style="background-color:white; padding:20px;">
+        <div class="col-md-7 border-bottom">
+            <ul class="nav nav-pills mb-3 border-right" id="pills-tab" role="tablist">
+                <li class="nav-item">
+                    @Html.ActionLink("HOY", "Index", "RegistroIncidencias", new RouteValueDictionary(new { varDate = 1 }), new Dictionary<string, object> { { "class", "nav-link" }, { "id", "pills-hom-tab" }, { "role", "tab" }, { "aria-controls", "pills-home" }, { "aria-selected", "true" } })
+                    @*<a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="@Url.Action("Index", "RegistroIncidencias", new { varDate = 1})" role="tab" aria-controls="pills-home" aria-selected="true">HOY</a>*@
+                    @*<a href="@Url.Action("Index", "RegistroIncidencias", new { varDate = 1})" class="nav-link @(ViewContext.RouteData.Values["action"].ToString().Equals("RegistroIncidencias") ? "active" : "")"> HOY </a>*@
+                </li>
+                <li class="nav-item">
+                    @Html.ActionLink("AYER", "Index", "RegistroIncidencias", new RouteValueDictionary(new { varDate = 2 }), new Dictionary<string, object> { { "class", "nav-link" }, { "id", "pills-hoe-tab" }, { "role", "tab" }, { "aria-controls", "pills-home" }, { "aria-selected", "true" } })
+                    @*<a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="@Url.Action("Index", "RegistroIncidencias", new { varDate = 2})" role="tab" aria-controls="pills-profile" aria-selected="false">AYER</a>*@
+                    @*<a href="@Url.Action("Index", "RegistroIncidencias", new { varDate = 2})" class="nav-link @(ViewContext.RouteData.Values["action"].ToString().Equals("RegistroIncidencias") ? "active" : "")"> AYER </a>*@
+                </li>
+                <li class="nav-item">
+                    @Html.ActionLink("ÚLTIMOS 7 DÍAS", "Index", "RegistroIncidencias", new RouteValueDictionary(new { varDate = 3 }), new Dictionary<string, object> { { "class", "nav-link" }, { "id", "pills-ome-tab" }, { "role", "tab" }, { "aria-controls", "pills-home" }, { "aria-selected", "true" } })
+                    @*<a class="nav-link" id="pills-contact-tab" data-toggle="pill" href="@Url.Action("Index", "RegistroIncidencias", new { varDate = 3})" role="tab" aria-controls="pills-contact" aria-selected="false">ÚLTIMOS 7 DÍAS</a>*@
+                    @*<a href="@Url.Action("Index", "RegistroIncidencias", new { varDate = 3})" class="nav-link @(ViewContext.RouteData.Values["action"].ToString().Equals("RegistroIncidencias") ? "active" : "")"> ÚLTIMOS 7 DÍAS </a>*@
+                </li>
+            </ul>
+        </div>
+        <div class="col-md-5 text-center border-bottom">
+            <button type="button" data-toggle="modal" data-target="#RegistroIModalCenter" class="btn btn-outline-primary"><i class="fas fa-plus"></i> NUEVO REGISTRO</button>
+        </div>
+
+
+    </div>
+
+    <div class="row" style="background-color:white; padding:5px;">
+        <div class="col-12">
+            <div class="text-center">
+                <h4 style="font-family:Open Sans;">@ViewBag.Encabezado</h4>
+            </div>
+            @if (Model.Incidencias.Count() == 0)
+            {
+                <h5>NO HAY REGISTROS</h5>
+            }
+            else
+            {
+                <table id="tableRegistrarI" style="font-size:12px;" class="table table-condensed table-striped table-bordered table-sm mt-3">
+                    <thead>
+                        <tr>
+                            <th>COD</th>
+                            <th>RNTT</th>
+                            <th>CHOFER</th>
+                            @*<th>CÉDULA</th>*@
+                            <th colspan="4" class="text-center">INCIDENTES</th>
+                            <th style="width:100px;" class="text-center">FECHA</th>
+                            <th>DESCRIPCION</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.Incidencias)
+                        {
+                            <tr>
+                                <td rowspan="3">@item.COD</td>
+                                <td rowspan="3">@item.RNTT</td>
+                                <td rowspan="3">@item.FULL_NAME</td>
+                                @*<td rowspan="3">@item.CEDULA</td>*@
+                                <td colspan="4">@item.REGLAS_LIST</td>
+                                <td>@item.STR_FECHA</td>
+                                <td rowspan="3">@item.DESCRIPCION</td>
+                                <td rowspan="3" class="align-middle">
+                                <button id="@item.ID_REGISTRO" class="btn btn-light btn-updateRegistro" data-rotulo="@item.ROTULO" data-rntt="@item.RNTT" data-reglasi="@item.REGLAS" data-infracciones="@item.REGLAS_LIST" data-cedula="@item.CEDULA"
+                                        data-dano="@item.DANOS" data-lesion="@item.LESIONES" data-seguridadFisica="@item.SEGURIDAD_FISICA"
+                                        data-descripcion="@item.DESCRIPCION" data-chofer="@item.FULL_NAME" data-fecha="@item.STR_FECHA" data-hora="@item.STR_HORA" data-toggle="modal" data-target="#RegistroIModalCenterEditar">
+                                    <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Editar</button>
+                                </td>
+                            </tr>
+                            <tr class="font-weight-bold text-center">
+                                <td data-toggle="tooltip" data-placement="bottom" title="REGLAS INFRINGIDAS">SI</td>
+                                <td data-toggle="tooltip" data-placement="bottom" title="DAÑOS OCACIONADOS">DAÑO</td>
+                                <td data-toggle="tooltip" data-placement="bottom" title="LESIONES">LESIÓN</td>
+                                <td data-toggle="tooltip" data-placement="bottom" title="SEGURIDAD FÍSICA">SF</td>
+                                <td>HORA</td>
+                            </tr>
+                            <tr class="text-center">
+                                <td class="@(item.REGLAS != null ? "text-danger" : "")"><i class="@(item.REGLAS != null ? "fas fa-times" : "fa fa-minus")"></i> </td>
+                                <td class="@(item.DANOS != null ? "text-danger" : "")"><i class="@(item.DANOS != null ? "fas fa-times" : "fa fa-minus")"></i></td>
+                                <td class="@(item.LESIONES != null ? "text-danger" : "")"><i class="@(item.LESIONES != null ? "fas fa-times" : "fa fa-minus")"></i></td>
+                                <td class="@(item.SEGURIDAD_FISICA != null ? "text-danger" : "")"><i class="@(item.SEGURIDAD_FISICA != null ? "fas fa-times" : "fa fa-minus")"></i></td>
+                                <td>@item.STR_HORA</td>
+                            </tr>
+
+                        }
+                    </tbody>
+                </table>
+
+
+
+
+            }
+
+        </div>
+    </div>
+
+
+</div>
+
+
+<!-- Modal Crear Registro -->
+<div class="modal fade" id="RegistroIModalCenter" tabindex="-1" role="dialog" aria-labelledby="RegistroIModalCenterTitle" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title text-primary" id="exampleModalLongTitle"><i class="fa fa-plus" aria-hidden="true"></i> Registrar Incidencia</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form style="background-color:white;">
+                    <div class="form-row">
+                        <div class="form-group col-md-4 col-sm-6 col-8">
+                            <label for="txtRNTT">RNTT</label>
+                            <div class="input-group">
+                                <input id="txtRNTT" type="number" class="form-control" placeholder="RNTT" aria-label="RNTT" style="text-transform:uppercase;" required aria-describedby="btnSearchRntt">
+                                <div class="input-group-append">
+                                    <button class="btn btn-outline-primary" type="button" id="btnSearchRntt">Buscar</button>
+                                </div>
+                            </div>
+                        </div>
+                        @*<div class="form-group col-md-2 col-sm-2 col-1"></div>*@
+                        <div class="form-group col-md-4">
+                            <label for="FechaIncidencia">Fecha de Incidencia</label>
+                            <div class="input-group date" id="pickerIncidenciaDate" data-target-input="nearest">
+                                <input id="FechaIncidencia" name="Fecha_Incidencia" type="text" class="form-control datetimepicker-input" data-target="#pickerIncidenciaDate" />
+                                <div class="input-group-append" data-target="#pickerIncidenciaDate" data-toggle="datetimepicker">
+                                    <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="HoraIncidencia">Hora de Incidencia</label>
+                            <div class="input-group date" id="pickerIncidenciaHours" data-target-input="nearest">
+                                <input id="HoraIncidencia" name="Hora_Incidencia" type="text" class="form-control datetimepicker-input" data-target="#pickerIncidenciaHours" />
+                                <div class="input-group-append" data-target="#pickerIncidenciaHours" data-toggle="datetimepicker">
+                                    <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="col-md-8">
+                            <div class="row">
+                                <div class="form-group col-lg-10 col-md-12">
+                                    <label for="txtNameFull">Nombres y Apellidos</label>
+                                    <input style="min-width:100%" type="text" class="form-control" id="txtNameFull" placeholder="Nombres y Apellidos" disabled>
+                                </div>
+                                @*<div class="form-group col-md-4">
+                                        <label for="txtCedula">Cédula</label>
+                                        <input type="text" class="form-control" id="txtCedula" placeholder="Cédula" disabled>
+                                    </div>*@
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-md-5">
+                                    <label for="txtRotulo">Rótulo</label>
+                                    <input name="s" type="text" class="form-control" style="text-transform:uppercase;" id="txtRotulo" placeholder="Rótulo">
+                                </div>
+                                <div class="form-group col-md-7">
+                                    <label for="txtCedula">Cédula</label>
+                                    <input type="text" class="form-control" id="txtCedula" placeholder="Cédula" disabled>
+                                    @*<label for="txtEmpresa">Empresa</label>
+                                        <input type="text" class="form-control" style="min-width:100%" id="txtEmpresa" placeholder="Empresa" disabled>*@
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <label for="inputAddress">Reglas Infringidas</label>
+
+                                    <select id="demo" data-show-content="true" multiple>
+                                        @foreach (var regla in Model.Reglas)
+                                        {
+                                            if (regla.ACTIVO)
+                                            {
+                                                <option value="@regla.ID_REGLA" icon="@regla.ICON">@regla.REGLA</option>
+                                            }
+                                        }
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group col-md-4 mt-3">
+                            <label for="inputCity">Tipo de Infracción</label>
+                            <div class="bg mt-1 ml-2">
+                                @foreach (var evento in Model.Eventos)
+                                {
+                                    if (evento.ACTIVO && evento.PUNTAJE < 0)
+                                    {
+                                        <div class="chiller_cb mt-2">
+                                            <input id="check_@evento.ID_EVENTO" name="checks[]" type="checkbox" value="@evento.ID_EVENTO" @((evento.ID_EVENTO == 11) ? "disabled" : "")>
+                                            <label for="check_@evento.ID_EVENTO">@evento.EVENTO</label>
+                                            <span></span>
+                                        </div>
+                                    }
+                                }
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="form-row">
+                        <div class="form-group col-md-12 mt-3">
+                            <label for="comment">Descripción breve de la infracción:</label>
+                            <textarea class="form-control" style="min-width: 100%" rows="4" id="comment"></textarea>
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+            <div class="modal-footer">
+                <button id="btnCancelar" type="button" class="btn btn-secondary eliminarr" data-dismiss="modal">Cancelar</button>
+                <button id="btnRegistrarIncidente" type="button" class="btn btn-primary">Crear Registro</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="RegistroIModalCenterEditar" tabindex="-1" role="dialog" aria-labelledby="RegistroIModalCenterEditarTitle" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title text-success" id="exampleModalLongTitle"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Editar Registro de Incidencia</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form style="background-color:white;">
+                    <div class="form-row">
+                        <div class="form-group col-md-3 col-sm-6 col-8">
+                            <label for="txtRNTTupdate">RNTT</label>
+                            <div class="input-group">
+                                <input id="txtRNTTupdate" type="number" class="form-control" style="text-transform:uppercase;" readonly>
+                            </div>
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label for="txtRotuloupdate">Rótulo</label>
+                            <input name="s" type="text" class="form-control" style="text-transform:uppercase;" id="txtRotuloupdate" placeholder="Rótulo">
+                        </div>
+                        @*<div class="form-group col-md-2 col-sm-2 col-1"></div>*@
+                        <div class="form-group col-md-3">
+                            <label for="FechaIncidenciaUpdate">Fecha de Incidencia</label>
+                            <div class="input-group date" id="pickerIncidenciaDateUpdate" data-target-input="nearest">
+                                <input id="FechaIncidenciaUpdate" name="Fecha_Incidencia" type="text" class="form-control datetimepicker-input" data-target="#pickerIncidenciaDateUpdate" />
+                                <div class="input-group-append" data-target="#pickerIncidenciaDateUpdate" data-toggle="datetimepicker">
+                                    <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label for="HoraIncidenciaUpdate">Hora de Incidencia</label>
+                            <div class="input-group date" id="pickerIncidenciaHoursUpdate" data-target-input="nearest">
+                                <input id="HoraIncidenciaUpdate" name="Hora_Incidencia" type="text" class="form-control datetimepicker-input" data-target="#pickerIncidenciaHoursUpdate" />
+                                <div class="input-group-append" data-target="#pickerIncidenciaHoursUpdate" data-toggle="datetimepicker">
+                                    <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="form-group col-lg-8 col-md-8">
+                            <label for="txtNameFullupdate">Nombres y Apellidos</label>
+                            <input style="min-width:100%" type="text" class="form-control" id="txtNameFullupdate" placeholder="Nombres y Apellidos" disabled>
+                        </div>
+                        <div class="form-group col-lg-4 col-md-4">
+                            <label for="txtCedulaupdate">Cédula</label>
+                            <input type="text" class="form-control" id="txtCedulaupdate" placeholder="Cédula" disabled>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label for="inputAddress">Reglas Infringidas</label>
+                            <ul id="listReglasInfringidas">
+                            </ul>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="inputCity">Infracciones</label>
+                            <ul id="listInfracciones">
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group col-md-12 mt-3">
+                            <label for="commentupdate">Descripción breve de la infracción:</label>
+                            <textarea class="form-control" style="min-width: 100%" rows="4" id="commentupdate"></textarea>
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+            <div class="modal-footer">
+                <button id="btnCancelar" type="button" class="btn btn-secondary eliminarr" data-dismiss="modal">Cancelar</button>
+                <button id="btnUpdateRegistro" type="button" class="btn btn-success">Actualizar Registro</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+    @*<link href="~/Content/select-beauty-css.css" rel="stylesheet" />
+        <script src="~/Scripts/app/select-beauty.js"></script>*@
+    <link href="~/Content/slimselect.css" rel="stylesheet" />
+    <script src="~/Scripts/app/slimselect.js"></script>
+    <script>
+        $(document).ready(function () {
+
+            $('li a').click(function () {
+                //$(this).parent().find('a').removeClass('active');
+                $(this).addClass('active');
+            });
+
+            //$.get(GETREGISTROS,
+            //    { varDate: account },
+            //    function (response) {
+
+            //        $("#titleAccount").text(account);
+
+            //        $("#titleAccount").text(function () {
+            //            return $(this).text().replace("&amp;", "&").replace("&quot;", "\"").replace("&apos;", "\'").replace("&lt;", "<").replace("&gt;", ">");
+            //        });
+
+
+            //        $("#activitiesTable #activities_tbody tr").remove();
+            //        $("#activities_tbody").append(response);
+            //    });
+            x = new SlimSelect({
+                select: '#demo',
+                placeholder: 'Reglas Infringidas',
+                showSearch: false,
+                closeOnSelect: false,
+                onChange: (info) => {
+                    if (x.data.getSelected().length > 0) {
+                        $("#check_11").prop('checked', true);
+                    } else {
+                        $("#check_11").prop('checked', false);
+                    }
+                }
+            });
+
+            REGISTRO_INCIDENCIAS = "@Url.Action("Crear_Registro_Incidencia", "RegistroIncidencias")"
+            GETCHOFERES = "@Url.Action("GetChoferes", "RegistroIncidencias")"
+            GET_REGISTRO_FOR_ID = "@Url.Action("GetRegistroForId","RegistroIncidencias")"
+            GET_UPDATE_REGISTRO = "@Url.Action("UpdateRegistro","RegistroIncidencias")"
+            @*var GETREGISTROS = "@Url.Action("RegistroTabla", "RegistroIncidencias")"*@
+        });
+
+    </script>
+}

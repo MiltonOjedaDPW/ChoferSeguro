@@ -1,0 +1,49 @@
+﻿@model Caucedo.LoyaltyProgram.Models.ReglasYEventos
+
+<table id="tableRegistrarI" class="display table table-condensed table-striped table-bordered table-sm">
+    <thead>
+        <tr>
+            <th>COD</th>
+            <th>RNTT</th>
+            <th>CHOFER</th>
+            @*<th>CÉDULA</th>*@
+            <th colspan="4" class="text-center">INCIDENTES</th>
+            <th style="width:100px;" class="text-center">FECHA</th>
+            <th>DESCRIPCION</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Incidencias)
+        {
+            <tr>
+                <td rowspan="3">@item.COD</td>
+                <td rowspan="3">@item.RNTT</td>
+                <td rowspan="3">@item.FULL_NAME</td>
+                @*<td rowspan="3">@item.CEDULA</td>*@
+                <td colspan="4">@item.REGLAS_LIST</td>
+                <td>@item.STR_FECHA</td>
+                <td rowspan="3">@item.DESCRIPCION</td>
+                <td rowspan="3" class="align-middle"><button class="btn btn-light"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Editar</button></td>
+            </tr>
+                            <tr class="font-weight-bold text-center">
+                                <td data-toggle="tooltip" data-placement="bottom" title="REGLAS INFRINGIDAS">SI</td>
+                                <td data-toggle="tooltip" data-placement="bottom" title="DAÑOS OCACIONADOS">DAÑO</td>
+                                <td data-toggle="tooltip" data-placement="bottom" title="LESIONES">LESIÓN</td>
+                                <td data-toggle="tooltip" data-placement="bottom" title="SEGURIDAD FÍSICA">SF</td>
+                                <td>HORA</td>
+                            </tr>
+                            <tr class="text-center">
+                                <td class="@(item.REGLAS != null ? "text-danger" : "")"><i class="@(item.REGLAS != null ? "fas fa-times" : "fa fa-minus")"></i> </td>
+                                <td class="@(item.DANOS != null ? "text-danger" : "")"><i class="@(item.DANOS != null ? "fas fa-times" : "fa fa-minus")"></i></td>
+                                <td class="@(item.LESIONES != null ? "text-danger" : "")"><i class="@(item.LESIONES != null ? "fas fa-times" : "fa fa-minus")"></i></td>
+                                <td class="@(item.SEGURIDAD_FISICA != null ? "text-danger" : "")"><i class="@(item.SEGURIDAD_FISICA != null ? "fas fa-times" : "fa fa-minus")"></i></td>
+                                <td>@item.STR_HORA</td>
+                            </tr>
+
+        }
+    </tbody>
+</table>
+
+
+

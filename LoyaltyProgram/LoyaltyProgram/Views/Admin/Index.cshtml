@@ -1,0 +1,722 @@
+﻿@model Caucedo.LoyaltyProgram.Models.EventosVM
+
+@{
+    ViewBag.Title = "Admin";
+}
+@using (Html.BeginForm("InsertarRecompensa", "Admin", FormMethod.Post, new { id = "drawingForm" }))
+{
+    <div class="container">
+        <br />
+        <h2 class="text-danger"><i class="fa fa-cog" aria-hidden="true"></i> Configuración de la Aplicación</h2>
+        <br />
+        <div class="row fondo_blanco p-3">
+            <div class="col-4 col-md-3 col-sm-4 col-lg-2" style="border-right: 1px solid gray">
+                <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                    <a class="nav-link active" id="v-pills-regla-tab" data-toggle="pill" href="#v-pills-regla" role="tab" aria-controls="v-pills-regla" aria-selected="true">Reglas</a>
+                    <a class="nav-link" id="v-pills-puntos-tab" data-toggle="pill" href="#v-pills-puntos" role="tab" aria-controls="v-pills-puntos" aria-selected="false">Puntos</a>
+                    <a class="nav-link" id="v-pills-recompensas-tab" data-toggle="pill" href="#v-pills-recompensas" role="tab" aria-controls="v-pills-recompensas" aria-selected="false">Recompensas</a>
+                    <a class="nav-link" id="v-pills-campana-tab" data-toggle="pill" href="#v-pills-campana" role="tab" aria-controls="v-pills-campana" aria-selected="false">Campañas</a>
+                </div>
+            </div>
+            <div class="col-8 col-md-9 col-sm-8 col-lg-10">
+                <div class="tab-content" id="v-pills-tabContent">
+                    <div class="tab-pane fade show active" id="v-pills-regla" role="tabpanel" aria-labelledby="v-pills-regla-tab">
+                        <h3>Configuración de Reglas</h3>
+                        <input id="btnCreaRegla" type="button" class="btn btn-outline-success" value="Crear Regla" />
+                        <hr />
+                        <table id="tableReglas" class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Regla</th>
+                                    @*<th>Icono</th>*@
+                                    <th>Descripción</th>
+                                    <th>Activo</th>
+                                    <th style="width:80px;"></th>
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
+
+                    <div class="tab-pane fade" id="v-pills-puntos" role="tabpanel" aria-labelledby="v-pills-puntos-tab">
+                        <h3>Configuración de Puntos</h3>
+                        <ul class="nav nav-tabs" id="myTab" role="tablist">
+                            <li class="nav-item">
+                                <a class="nav-link active" id="configuracion-tab" data-toggle="tab" href="#configuracion" role="tab" aria-controls="configuracion" aria-selected="true">Configuración</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="rPuntos-tab" data-toggle="tab" href="#rPuntos" role="tab" aria-controls="rPuntos" aria-selected="false">Revisión Puntos</a>
+                            </li>
+                        </ul>
+                        <div class="tab-content" id="myTabContent">
+                            <br />
+                            <div class="tab-pane fade show active" id="configuracion" role="tabpanel" aria-labelledby="configuracion-tab">
+                                <input id="btnEvento" type="button" class="btn btn-outline-success" value="Crear Evento" />
+                                <hr />
+                                <table id="tablaEventos" class="table table-bordered" style="width:100%">
+                                    <thead>
+                                        <tr>
+                                            <th>Evento</th>
+                                            <th>Puntaje</th>
+                                            <th>Activo</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                </table>
+                            </div>
+                            <div class="tab-pane fade" id="rPuntos" role="tabpanel" aria-labelledby="rPuntos-tab">
+                                <form style="background-color:white; padding:20px;">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-row">
+                                                <div class="form-group col-md-3">
+                                                    <label for="txtRNTTmanual">RNTT</label>
+                                                    <div class="input-group">
+                                                        <input id="txtRNTTmanual" style="text-transform:uppercase;" type="text" class="form-control" placeholder="RNTT" aria-label="RNTT" aria-describedby="btnSearchRntt">
+                                                        <div class="input-group-append">
+                                                            <button class="btn btn-outline-primary" type="button" id="btnSearchRnttManual">Buscar</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group col-md-6">
+                                                    <label for="txtNameFullManual">Nombres y Apellidos  <span id="statusC" class="font-weight-bold"></span></label>
+                                                    <input style="min-width:100%" type="text" class="form-control" id="txtNameFullManual" placeholder="Nombres y Apellidos" disabled>
+                                                </div>
+                                                <div class="form-group col-md-3">
+                                                    <label for="txtCedulaManual">Cédula</label>
+                                                    <input type="text" class="form-control" id="txtCedulaManual" placeholder="Cédula" disabled>
+                                                </div>
+
+                                            </div>
+                                            <div class="form-row">
+                                                <div class="form-group col-md-8">
+                                                    <label for="commentManual">Motivo:</label>
+                                                    <textarea class="form-control" style="min-width: 100%" rows="3" id="commentManual"></textarea>
+                                                </div>
+                                                <div class="form-group col-md-4">
+                                                    <label for="inputAddress">Tipo de Evento</label>
+
+                                                    <select id="EventosPositivos" data-show-content="true">
+                                                        @foreach (var evento in Model.Eventos)
+                                                        {
+                                                            if (evento.ACTIVO && evento.PUNTAJE > 0)
+                                                            {
+                                                                <option value="@evento.PUNTAJE">@evento.EVENTO - @evento.PUNTAJE puntos</option>
+                                                            }
+                                                        }
+                                                    </select>
+                                                </div>
+                                            </div>
+
+
+                                            <button id="btnRegistroManual" type="button" class="btn btn-primary">Guardar</button>
+                                        </div>
+                                    </div>
+
+
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tab-pane fade" id="v-pills-recompensas" role="tabpanel" aria-labelledby="v-pills-recompensas-tab">
+                        <h3>Configuración de Recompensas</h3>
+                        <input id="btnRecompensa" type="button" class="btn btn-outline-success" value="Crear Recompensa" />
+                        <hr />
+                        <table id="tablaRecompensa" class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Recompensa</th>
+                                    <th>Imagen</th>
+                                    <th>Descripción</th>
+                                    <th>Valor Puntos</th>
+                                    <th>Stock</th>
+                                    <th>Fecha Creación</th>
+                                    <th>Activo</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
+
+                    <div class="tab-pane fade" id="v-pills-campana" role="tabpanel" aria-labelledby="v-pills-campana-tab">
+                        <h3>Configuración de Campañas</h3>
+                        <input id="btnCreaCampaña" type="button" class="btn btn-outline-success" value="Crear Campaña" />
+                        <hr />
+                        <table id="tablaCampanias" class="table table-bordered" style="width:100%">
+                            <thead>
+                                <tr>
+                                    <th>Campaña</th>
+                                    <th>Fecha Inicio</th>
+                                    <th>Fecha Fin</th>
+                                    <th>Fecha Canje</th>
+                                    <th>Activo</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+    <!-- Modal Crear Regla -->
+    <div class="modal fade" id="ReglaModalCenter" tabindex="-1" role="dialog" aria-labelledby="ReglaModalCenterTitle" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title text-success" id="exampleModalLongTitle"><i class="fa fa-plus" aria-hidden="true"></i> Crear Regla</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group row">
+                            <label for="txtRegla" class="col-form-label col-xl-2 col-2 text-success"><strong>Rol:</strong></label>
+                            <div class="col-10 col-xl-10">
+                                <input type="text" style="min-width:100%" class="form-control" id="txtRol" placeholder="Rol">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="txtDescripcion" class="col-form-label col-xl-2 col-2 text-success"><strong>Descripción:</strong></label>
+                            <div class="col-10 col-xl-10">
+                                <input type="text" style="min-width:100%" class="form-control" id="txtDescripcion" placeholder="Location Name">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button id="btnCancelar" type="button" class="btn btn-secondary eliminarr" data-dismiss="modal">Cancelar</button>
+                    <button id="btnInsertRegla" type="button" class="btn btn-success">Guardar Cambios</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Modificar Regla -->
+    <div class="modal fade" id="ReglaModalModificarCenter" tabindex="-1" role="dialog" aria-labelledby="ReglaModalModificarCenterTitle" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title text-primary" id="exampleModalLongTitle"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Editar Regla</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group row">
+                            <label for="txtRegla" class="col-form-label col-xl-2 col-2 text-primary"><strong>Regla:</strong></label>
+                            <div class="col-10 col-xl-10">
+                                <input type="text" style="min-width:100%" class="form-control" id="txtReglaUpd">
+                            </div>
+                        </div>
+                        @*<div class="form-group row">
+                                <label for="txtIcon" class="col-form-label col-xl-2 col-2 text-primary"><strong>Icon:</strong></label>
+                                <div class="col-10 col-xl-10">
+                                    <input type="text" style="min-width:100%" class="form-control" id="txtIconUpd">
+                                </div>
+                            </div>*@
+                        <div class="form-group">
+                            <label class="text-primary" for="txtDescripcion"><strong>Descripción:</strong></label>
+                            <textarea class="form-control" style="min-width: 100%" rows="4" id="txtDescripcionUpd"></textarea>
+                        </div>
+                        <div class="outerDivFull form-group row">
+                            <label for="txtActivo" class="col-form-label col-xl-2 col-2 text-primary"><strong>Activo:</strong></label>
+                            <div class="switchToggle col-10 col-xl-10">
+                                <input type="checkbox" id="switchRegla">
+                                <label for="switchRegla">Toggle</label>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button id="btnCancelar7" type="button" class="btn btn-secondary eliminarr" data-dismiss="modal">Cancelar</button>
+                    <button id="btnUpdateRegla" type="button" class="btn btn-primary">Guardar Cambios</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Crear Evento -->
+    <div class="modal fade" id="EventoModalCenter" tabindex="-1" role="dialog" aria-labelledby="EventoModalCenterTitle" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title text-success" id="exampleModalLongTitle"><i class="fa fa-plus" aria-hidden="true"></i> Crear Evento</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group row">
+                            <label for="txtEvento" class="col-form-label col-xl-2 col-2 text-success"><strong>Evento:</strong></label>
+                            <div class="col-10 col-xl-10">
+                                <input type="text" style="min-width:100%" class="form-control" id="txtEvento" placeholder="Evento">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="txtPuntaje" class="col-form-label col-xl-2 col-2 text-success"><strong>Puntaje:</strong></label>
+                            <div class="col-10 col-xl-10">
+                                <input type="number" style="min-width:100%" class="form-control" id="txtPuntaje" placeholder="Puntaje">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button id="btnCancelar6" type="button" class="btn btn-secondary eliminarr" data-dismiss="modal">Cancelar</button>
+                    <button id="btnInsertEvento" type="button" class="btn btn-success">Guardar Cambios</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Modificar Evento -->
+    <div class="modal fade" id="EventoUPDModalCenter" tabindex="-1" role="dialog" aria-labelledby="EventoUPDModalCenterTitle" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title text-primary" id="exampleModalLongTitle"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Editar Evento</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group row">
+                            <label for="txtEventoUPD" class="col-form-label col-xl-2 col-2 text-primary"><strong>Evento:</strong></label>
+                            <div class="col-10 col-xl-10">
+                                <input type="text" style="min-width:100%" class="form-control" id="txtEventoUPD">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="txtPuntajeUPD" class="col-form-label col-xl-2 col-2 text-primary"><strong>Puntaje:</strong></label>
+                            <div class="col-10 col-xl-10">
+                                <input type="number" style="min-width:100%" class="form-control" id="txtPuntajeUPD">
+                            </div>
+                        </div>
+                        <div class="outerDivFull form-group row">
+                            <label for="txtActivo" class="col-form-label col-xl-2 col-2 text-primary"><strong>Activo:</strong></label>
+                            <div class="switchToggle col-10 col-xl-10">
+                                <input type="checkbox" id="switchEvento">
+                                <label for="switchEvento">Toggle</label>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button id="btnCancelar5" type="button" class="btn btn-secondary eliminarr" data-dismiss="modal">Cancelar</button>
+                    <button id="btnUpdateEvento" type="button" class="btn btn-primary">Guardar Cambios</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Crear Recompensa -->
+    <div class="modal fade" id="RecompensaModalCenter" tabindex="-1" role="dialog" aria-labelledby="RecompensaModalCenterTitle" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title text-success" id="exampleModalLongTitle"><i class="fa fa-plus" aria-hidden="true"></i> Crear Recompensa</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-5">
+                            <div class="form-group ">
+                                <label for="txtArtículo" class="text-success"><strong>Artículo:</strong></label>
+                                <input type="text" style="min-width: 100%" class="form-control" id="txtArtículo" placeholder="Artículo">
+                            </div>
+                            <div class="form-group">
+                                <label for="txtValorPuntos" class="text-success"><strong>Valor Puntos:</strong></label>
+                                <input type="number" style="min-width: 100%" class="form-control" id="txtValorPuntos" placeholder="Valor Puntos">
+                            </div>
+                            <div class="form-group">
+                                <label for="txtStock" class="text-success"><strong>Stock:</strong></label>
+                                <input type="number" style="min-width: 100%" class="form-control" id="txtStock" placeholder="Stock">
+                            </div>
+                            <div class="form-group">
+                                <label for="txtDescripcion" class="text-success"><strong>Descripción:</strong></label>
+                                <textarea class="form-control" style="min-width: 100%; white-space:pre-line;" rows="3" id="txtDescripcionRecom"></textarea>
+                            </div>
+
+                            <div id="img_canvas"></div>
+
+                        </div>
+                        <div class="col-md-7 border-left">
+                            <div class="custom-file">
+                                <label class="control-label text-success"><strong>Imagen de la Recompensa:</strong></label>
+
+                                <div class="container">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="img-container">
+                                                <img src="~/img/no_found.png" class="img-fluid" alt="No found">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row" id="actions">
+                                        <div class="col-md-12 docs-buttons">
+                                            <!-- <h3>Toolbar:</h3> -->
+                                            <div class="btn-group">
+                                                <button type="button" class="btn btn-warning" data-method="rotate" data-option="-90" title="Rotate Left">
+                                                    <span class="docs-tooltip" data-toggle="tooltip" title="rotar (-90)">
+                                                        <span class="fa fa-undo-alt"></span>
+                                                    </span>
+                                                </button>
+                                                <button type="button" class="btn btn-warning" data-method="rotate" data-option="90" title="Rotate Right">
+                                                    <span class="docs-tooltip" data-toggle="tooltip" title="rotar (90)">
+                                                        <span class="fa fa-redo-alt"></span>
+                                                    </span>
+                                                </button>
+                                            </div>
+                                            <div class="btn-group">
+                                                <button type="button" class="btn btn-warning" data-method="scaleX" data-option="-1" title="Flip Horizontal">
+                                                    <span class="docs-tooltip" data-toggle="tooltip" title="scaleX (-1)">
+                                                        <span class="fa fa-arrows-alt-h"></span>
+                                                    </span>
+                                                </button>
+                                                <button type="button" class="btn btn-warning" data-method="scaleY" data-option="-1" title="Flip Vertical">
+                                                    <span class="docs-tooltip" data-toggle="tooltip" title="scaleY (-1)">
+                                                        <span class="fa fa-arrows-alt-v"></span>
+                                                    </span>
+                                                </button>
+                                            </div>
+                                            <div class="btn-group">
+                                                <button type="button" class="btn btn-warning" data-method="reset" title="Reset">
+                                                    <span class="docs-tooltip" data-toggle="tooltip" title="refresh()">
+                                                        <span class="fa fa-sync-alt"></span>
+                                                    </span>
+                                                </button>
+                                                <label class="btn btn-warning btn-upload" for="inputImage" title="Upload image file">
+                                                    <input type="file" class="sr-only" id="inputImage" name="file" accept="image/*">
+                                                    <span class="docs-tooltip" data-toggle="tooltip" title="Import image()">
+                                                        <span class="fa fa-upload"> Subir</span>
+                                                    </span>
+                                                </label>
+                                            </div>
+                                            <div class="btn-group btn-group-crop">
+                                                <button type="button" class="btn btn-warning" data-method="getCroppedCanvas" data-option="{ &quot;maxWidth&quot;: 4096, &quot;maxHeight&quot;: 4096 }">
+                                                    <span class="docs-tooltip" data-toggle="tooltip" title="cortar()">
+                                                        <i class="fa fa-scissors" aria-hidden="true"></i> Cortar
+                                                    </span>
+                                                </button>
+                                            </div>
+                                        </div><!-- /.docs-buttons -->
+                                        <div class="docs-toggles"></div><!-- /.docs-toggles -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button id="btnCancelar4" type="button" class="btn btn-secondary eliminarr" data-dismiss="modal">Cancelar</button>
+                    <button id="btnInsertRecompensa" type="button" class="btn btn-success">Guardar Cambios</button>
+                    <input type="hidden" name="imageData" id="imageData" />
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal modificar Recompensa -->
+    <div class="modal fade" id="RecompensaUPDModalCenter" tabindex="-1" role="dialog" aria-labelledby="RecompensaUPDModalCenterTitle" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title text-primary" id="exampleModalLongTitle"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Editar Recompensa</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-5" style="border-right: 1px solid #d5d5d5;">
+                            <div class="form-group">
+                                <label for="txtArtículoUpd" class="text-primary"><strong>Artículo:</strong></label>
+                                <div>
+                                    <input type="text" style="min-width: 100%" class="form-control" id="txtArtículoUpd">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="txtValorPuntosUpd" class="text-primary"><strong>Valor Puntos:</strong></label>
+                                <div>
+                                    <input type="number" style="min-width: 100%" class="form-control" id="txtValorPuntosUpd">
+                                </div>
+                            </div>
+                            <div class="form-group ">
+                                <label for="txtStockUpd" class="text-primary"><strong>Stock:</strong></label>
+                                <div>
+                                    <input type="number" style="min-width: 100%" class="form-control" id="txtStockUpd">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="txtDescripcionRecomUpd" class="text-primary"><strong>Descripción:</strong></label>
+                                <textarea class="form-control" style="min-width: 100%" rows="3" id="txtDescripcionRecomUpd"></textarea>
+                            </div>
+                            <div class="outerDivFull form-group row">
+                                <label for="switchRecompensa" class="col-form-label col-xl-2 col-2 text-primary"><strong>Activo:</strong></label>
+                                <div class="switchToggle col-10 col-xl-10">
+                                    <input type="checkbox" id="switchRecompensa">
+                                    <label for="switchRecompensa">Toggle</label>
+                                </div>
+                            </div>
+                            <div id="img_canvas"></div>
+                        </div>
+
+
+                        <div class="col-md-7">
+                            <div class="custom-file">
+                                <label class="control-label text-primary"><strong>Imagen:</strong></label>
+                                <div class="container">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <!-- <h3>Demo:</h3> -->
+                                            <div class="img-container">
+                                                <img id="img_Update" src="" class="img-fluid" alt="No found">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row" id="actions">
+                                        <div class="col-md-12 docs-buttons">
+                                            <!-- <h3>Toolbar:</h3> -->
+                                            <div class="btn-group">
+                                                <button type="button" class="btn btn-warning" data-method="rotate" data-option="-90" title="Rotate Left">
+                                                    <span class="docs-tooltip" data-toggle="tooltip" title="rotar (-90)">
+                                                        <span class="fa fa-undo-alt"></span>
+                                                    </span>
+                                                </button>
+                                                <button type="button" class="btn btn-warning" data-method="rotate" data-option="90" title="Rotate Right">
+                                                    <span class="docs-tooltip" data-toggle="tooltip" title="rotar (90)">
+                                                        <span class="fa fa-redo-alt"></span>
+                                                    </span>
+                                                </button>
+                                            </div>
+                                            <div class="btn-group">
+                                                <button type="button" class="btn btn-warning" data-method="scaleX" data-option="-1" title="Flip Horizontal">
+                                                    <span class="docs-tooltip" data-toggle="tooltip" title="scaleX (-1)">
+                                                        <span class="fa fa-arrows-alt-h"></span>
+                                                    </span>
+                                                </button>
+                                                <button type="button" class="btn btn-warning" data-method="scaleY" data-option="-1" title="Flip Vertical">
+                                                    <span class="docs-tooltip" data-toggle="tooltip" title="scaleY (-1)">
+                                                        <span class="fa fa-arrows-alt-v"></span>
+                                                    </span>
+                                                </button>
+                                            </div>
+                                            <div class="btn-group">
+                                                <button type="button" class="btn btn-warning" data-method="reset" title="Reset">
+                                                    <span class="docs-tooltip" data-toggle="tooltip" title="refresh()">
+                                                        <span class="fa fa-sync-alt"></span>
+                                                    </span>
+                                                </button>
+                                                <label class="btn btn-warning btn-upload" for="inputImage" title="Upload image file">
+                                                    <input type="file" class="sr-only" id="inputImage" name="file" accept="image/*">
+                                                    <span class="docs-tooltip" data-toggle="tooltip" title="Import image()">
+                                                        <span class="fa fa-upload"> Subir</span>
+                                                    </span>
+                                                </label>
+                                            </div>
+                                            <div class="btn-group btn-group-crop">
+                                                <button type="button" class="btn btn-warning" data-method="getCroppedCanvas" data-option="{ &quot;maxWidth&quot;: 4096, &quot;maxHeight&quot;: 4096 }">
+                                                    <span class="docs-tooltip" data-toggle="tooltip" title="cortar()">
+                                                        <i class="fa fa-scissors" aria-hidden="true"></i> Cortar
+                                                    </span>
+                                                </button>
+                                            </div>
+
+
+                                        </div><!-- /.docs-buttons -->
+                                        <div class="docs-toggles"></div><!-- /.docs-toggles -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button id="btnCancelar3" type="button" class="btn btn-secondary eliminarr" data-dismiss="modal">Cancelar</button>
+                    <button id="btnUpdateRecompensa" type="button" class="btn btn-primary">Guardar Cambios</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Modal Crear Campaña -->
+    <div class="modal fade" id="CampanaModalCenter" tabindex="-1" role="dialog" aria-labelledby="CampanaModalCenterTitle" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title text-success" id="exampleModalLongTitle"><i class="fa fa-plus" aria-hidden="true"></i> Crear Campaña</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group row">
+                            <label for="txtCampania" class="col-form-label col-xl-2 col-2 text-success"><strong>Campaña:</strong></label>
+                            <div class="col-10 col-xl-10">
+                                <input type="text" style="min-width:100%" class="form-control" id="txtCampania" placeholder="Campaña">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="FechaDeInicio" class="col-form-label col-5 text-success"><strong>Fecha de Inicio:</strong></label>
+                            <div class="input-group date col-7" id="pickerFechaInicio" data-target-input="nearest">
+                                <input id="FechaDeInicio" name="Fecha" type="text" class="form-control datetimepicker-input" data-target="#pickerFechaInicio" />
+                                <div class="input-group-append" data-target="#pickerFechaInicio" data-toggle="datetimepicker">
+                                    <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="FechaDeFin" class="col-form-label col-5 text-success"><strong>Fecha de Término:</strong></label>
+                            <div class="input-group date col-7" id="pickerFechaFin" data-target-input="nearest">
+                                <input id="FechaDeFin" name="Fecha_Incidencia" type="text" class="form-control datetimepicker-input" data-target="#pickerFechaFin" />
+                                <div class="input-group-append" data-target="#pickerFechaFin" data-toggle="datetimepicker">
+                                    <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="FechaDeCanje" class="col-form-label col-5 text-success"><strong>Fecha de Cánje:</strong></label>
+                            <div class="input-group date col-7" id="pickerFechaCanje" data-target-input="nearest">
+                                <input id="FechaDeCanje" name="Fecha_Incidencia" type="text" class="form-control datetimepicker-input" data-target="#pickerFechaCanje" />
+                                <div class="input-group-append" data-target="#pickerFechaCanje" data-toggle="datetimepicker">
+                                    <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button id="btnCancelar2" type="button" class="btn btn-secondary eliminarr" data-dismiss="modal">Cancelar</button>
+                    <button id="btnInsertCampaña" type="button" class="btn btn-success">Guardar Cambios</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Modal Modificar Campaña -->
+    <div class="modal fade" id="CampanaUPDModalCenter" tabindex="-1" role="dialog" aria-labelledby="CampanaUPDModalCenterTitle" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title text-primary" id="exampleModalLongTitle"><i class="fa fa-pencil" aria-hidden="true"></i> Modificar Campaña</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group row">
+                            <label for="txtCampaniaUPD" class="col-form-label col-xl-2 col-2 text-primary"><strong>Campaña:</strong></label>
+                            <div class="col-10 col-xl-10">
+                                <input type="text" style="min-width:100%" class="form-control" id="txtCampaniaUPD" placeholder="Campaña">
+                            </div>
+                        </div>
+
+                        @*<div class="form-group row">
+                                <label for="FechaDeInicioUPD" class="col-form-label col-5 text-primary"><strong>Fecha de Inicio:</strong></label>
+                                <div class="input-group date col-7" id="pickerFechaInicioUPD" data-target-input="nearest">
+                                    <input id="FechaDeInicioUPD" name="Fecha" type="text" class="form-control datetimepicker-input" data-target="#pickerFechaInicioUPD" />
+                                    <div class="input-group-append" data-target="#pickerFechaInicioUPD" data-toggle="datetimepicker">
+                                        <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="FechaDeFinUPD" class="col-form-label col-5 text-primary"><strong>Fecha de Término:</strong></label>
+                                <div class="input-group date col-7" id="pickerFechaFinUPD" data-target-input="nearest">
+                                    <input id="FechaDeFinUPD" name="Fecha_IncidenciaUPD" type="text" class="form-control datetimepicker-input" data-target="#pickerFechaFinUPD" />
+                                    <div class="input-group-append" data-target="#pickerFechaFinUPD" data-toggle="datetimepicker">
+                                        <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                                    </div>
+                                </div>
+                            </div>*@
+
+                        <div class="form-group row">
+                            <label for="FechaDeCanjeUPD" class="col-form-label col-5 text-primary"><strong>Fecha de Cánje:</strong></label>
+                            <div class="input-group date col-7" id="pickerFechaCanjeUPD" data-target-input="nearest">
+                                <input id="FechaDeCanjeUPD" name="Fecha_IncidencaUPD" type="text" class="form-control datetimepicker-input" data-target="#pickerFechaCanjeUPD" />
+                                <div class="input-group-append" data-target="#pickerFechaCanjeUPD" data-toggle="datetimepicker">
+                                    <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="outerDivFull form-group row">
+                            <label for="switchCampania" class="col-form-label col-xl-2 col-2 text-primary"><strong>Activo:</strong></label>
+                            <div class="switchToggle col-10 col-xl-10">
+                                <input type="checkbox" id="switchCampania">
+                                <label for="switchCampania">Toggle</label>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button id="btnCancelar1" type="button" class="btn btn-secondary eliminarr" data-dismiss="modal">Cancelar</button>
+                    <button id="btnUpdateCampaña" type="button" class="btn btn-primary">Guardar Cambios</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+@section Scripts {
+    <link href="~/Content/css_img/cropper.css" rel="stylesheet" />
+    <link href="~/Content/css_img/main.css" rel="stylesheet" />
+
+    <link href="~/Content/slimselect.css" rel="stylesheet" />
+    <script src="~/Scripts/app/slimselect.js"></script>
+
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
+    <script src="~/Scripts/app/cropper.js"></script>
+    <script src="~/Scripts/app/main.js"></script>
+
+
+    <script type="text/javascript">
+
+
+        var root = @Html.Raw(Json.Encode(ViewBag.root));
+        var GETREGLAS = "@Url.Action("GetReglas", "Admin")"
+        var GETEVENTOS = "@Url.Action("GetEventos", "Admin")"
+        var GETRECOMPENSAS = "@Url.Action("GetRecompensas", "Admin")"
+        var GETCAMPANIAS = "@Url.Action("GetCampanias", "Admin")"
+        var INSERTREGLA = "@Url.Action("InsertarRegla", "Admin")"
+        var INSERTRECOMPENSA = "@Url.Action("InsertarRecompensa", "Admin")"
+        var INSERTEVENTO = "@Url.Action("InsertarEvento", "Admin")"
+        var CREARCAMPANIA = "@Url.Action("CrearCampania", "Admin")"
+        var UPDATECAMPANIA = "@Url.Action("UpdateCampania","Admin")"
+        var CREARREGISTROMANUAL = "@Url.Action("CrearRegistroManual","Admin")"
+        var GETCHOFERES = "@Url.Action("GetChoferes", "Recompensas")"
+
+        $(document).ready(function(){
+
+
+            xpuntosPositivos = new SlimSelect({
+                select: '#EventosPositivos',
+                placeholder: 'Eventos',
+                showSearch: false
+            });
+
+
+
+        });
+    </script>
+
+}
+
+

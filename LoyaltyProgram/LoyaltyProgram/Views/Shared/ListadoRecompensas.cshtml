@@ -1,0 +1,27 @@
+﻿@model IEnumerable<Caucedo.LoyaltyProgram.BLL.ListadoEntregaRecompensas>
+
+<table id="tableListado" class="table table-bordered table-sm">
+    <thead>
+        <tr>
+            <th>RNTT</th>
+            <th>CHOFER</th>
+            <th>CEDULA</th>
+            <th>RECOMPENSAS</th>
+            <th>TOTAL</th>
+            <th>CAMPAÑA</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+        <tr>
+            <td>@item.RNTT</td>
+            <td>@item.CHOFER</td>
+            <td>@item.CEDULA</td>
+            <td>@item.RECOMPENSAS_LIST</td>
+            <td>@item.PUNTOS_RECOMEPENSAS_T</td>
+            <td>@item.CAMPANIA</td>
+        </tr>
+        }
+    </tbody>
+</table>

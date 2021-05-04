@@ -1,0 +1,377 @@
+﻿@model Caucedo.LoyaltyProgram.Models.RecompensasVM
+@{
+    ViewBag.Title = "Recompensas";
+}
+<style type="text/css">
+    /* not active */
+
+    .nav-pills .pill-3 .nav-link:not(.active) {
+        background-color: transparent;
+        color: rgba(40, 167, 69,1);
+    }
+
+    /* active (faded) */
+    .nav-pills .pill-3 .nav-link {
+        background-color: rgba(40, 167, 69, 1);
+        color: white;
+    }
+</style>
+
+<div class="container">
+    <br />
+    <h2 class="text-success"><i class="fa fa-gift" aria-hidden="true"></i> Recompensas</h2>
+    <br />
+
+    <div style="background-color:white; padding:20px;">
+
+        <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+            <li class="nav-item pill-3">
+                <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true">Entregar Recompensas</a>
+            </li>
+            <li class="nav-item pill-3">
+                <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false">Listado de Entregas</a>
+            </li>
+            @*<li class="nav-item">
+                    <button class="nav-link btn btn-danger" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false">Listado de Entregas</button>
+                </li>*@
+        </ul>
+        <hr />
+        <div class="tab-content" id="pills-tabContent">
+            <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+                <form>
+                    <div class="row">
+                        <div class="col-lg-7 col-md-12 col-sm-12 col-12">
+                            <div class="form-row">
+                                <div class="form-group col-md-5">
+                                    <label for="txtRNTT">RNTT</label>
+                                    <div class="input-group">
+                                        <input id="txtRNTT" autofocus style="text-transform:uppercase;" type="number" class="form-control" placeholder="RNTT" aria-label="RNTT" aria-describedby="btnSearchRntt">
+                                        <div class="input-group-append">
+                                            <button class="btn btn-outline-primary" type="button" id="btnSearchRnttRecomp">Buscar</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label for="txtPuntosAcumulados">Puntos Disponibles</label>
+                                    <input class="form-control" style="min-width:100%" id="txtPuntosAcumulados" placeholder="0" disabled>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group col-md-8">
+                                    <label for="txtNameFull">Nombres y Apellidos  <span id="statusC" class="font-weight-bold"></span></label>
+                                    <input style="min-width:100%" type="text" class="form-control" id="txtNameFull" placeholder="Nombres y Apellidos" disabled>
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label for="txtCedula">Cédula</label>
+                                    <input type="text" class="form-control" id="txtCedula" placeholder="Cédula" disabled>
+                                </div>
+
+                            </div>
+
+                            <div class="form-row mb-4">
+                                <div class="form-group col-md-6">
+                                    <label for="txtEmpresa">Empresa</label>
+                                    <input type="text" class="form-control" style="min-width:100%" id="txtEmpresa" placeholder="Empresa" disabled>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label for="inputAddress">Recompensas Disponibles</label>
+
+                                    <select id="recompensas" data-show-content="true">
+                                        @foreach (var recom in Model.Recompensa)
+                                        {
+                                            if (recom.ACTIVO)
+                                            {
+                                                <option class="@recom.VALOR_PUNTOS" value="@recom.ID_RECOMPENSA">@recom.NOMBRE - @recom.VALOR_PUNTOS puntos</option>
+                                            }
+                                        }
+                                    </select>
+
+                                </div>
+                            </div>
+
+                            <button id="btnRegistrarEntRecompensa" type="button" class="btn btn-primary">Guardar</button>
+                            <button id="btnAgregarRecompensa" type="button" class="btn btn-success pull-right" disabled>Agregar</button>
+
+                            @*<div class="form-row">
+                                    <table id="tablaRecompensaDar" class="mt-3 table table-hover table-sm">
+                                        <thead>
+                                            <tr class="h4">
+                                                <th>Recompensa</th>
+                                                <th>Puntos</th>
+                                                <th class="text-center">Stock</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach (var item in Model.Recompensa)
+                                            {
+                                                if (item.ACTIVO)
+                                                {
+                                                    <tr>
+                                                        <td class="h5">@item.NOMBRE</td>
+                                                        <td class="font-weight-bold h5">@item.VALOR_PUNTOS</td>
+                                                        <td class="font-weight-bold h5 text-primary text-center">@item.STOCK</td>
+                                                    </tr>
+                                                }
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>*@
+                        </div>
+                        @*<div class="col-lg-5 col-md-5">
+                                <h3 class="text-success">Puntos restantes <span id="puntos_restantes">0</span></h3>
+                                <table id="tableRecompensasCanjeadas" class="table table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>Recompensa</th>
+                                            <th>Valor Puntos</th>
+                                            <th style="width:30px;"></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="body"></tbody>
+                                    <tfoot>
+                                        <tr>
+                                            <th>TOTAL</th>
+                                            <th id="totalPuntos">0</th>
+                                            <th></th>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+
+                                <div class="form-row">
+                                    <table id="tablaRecompensaDar" class="mt-3 table table-hover table-sm">
+                                        <thead>
+                                            <tr class="h4">
+                                                <th>Recompensa</th>
+                                                <th>Puntos</th>
+                                                <th class="text-center">Stock</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach (var item in Model.Recompensa)
+                                            {
+                                                if (item.ACTIVO)
+                                                {
+                                                    <tr>
+                                                        <td class="h5">@item.NOMBRE</td>
+                                                        <td class="font-weight-bold h5">@item.VALOR_PUNTOS</td>
+                                                        <td class="font-weight-bold h5 text-primary text-center">@item.STOCK</td>
+                                                    </tr>
+                                                }
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                            </div>*@
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <table id="tablaRecompensaDar" style="font-size:16px;" class="mt-3 table table-hover table-sm">
+                                <thead>
+                                    <tr>
+                                        <th>Recompensa</th>
+                                        <th>Puntos</th>
+                                        <th class="text-center">Stock</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model.Recompensa)
+                                    {
+                                        if (item.ACTIVO)
+                                        {
+                                            <tr>
+                                                <td>@item.NOMBRE</td>
+                                                <td class="font-weight-bold">@item.VALOR_PUNTOS</td>
+                                                <td class="font-weight-bold text-primary text-center">@item.STOCK</td>
+                                            </tr>
+                                        }
+                                    }
+                                </tbody>
+                            </table>
+
+                        </div>
+                        <div class="col-md-6">
+                            <h4 class="text-success">Puntos restantes <span id="puntos_restantes">0</span></h4>
+                            <table id="tableRecompensasCanjeadas" style="font-size:16px;" class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>Recompensa</th>
+                                        <th>Puntos</th>
+                                        <th style="width:30px;"></th>
+                                    </tr>
+                                </thead>
+                                <tbody id="body"></tbody>
+                                <tfoot>
+                                    <tr>
+                                        <th>TOTAL</th>
+                                        <th id="totalPuntos">0</th>
+                                        <th></th>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+
+                    </div>
+                </form>
+            </div>
+            <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
+                <h2 class="text-center text-success s"><u>@ViewBag.campania</u></h2>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <label class="input-group-text" for="gender3">Campañas</label>
+                    </div>
+                    <select class="custom-select" id="campanasSelect">
+                        <option selected>Selecione...</option>
+                        @foreach (var item in Model.Campanas)
+                        {
+                            <option value="@item">@item</option>
+                        }
+
+                    </select>
+                </div>
+                <div id="lista_de_recompensas">
+
+                </div>
+
+                @*<table id="TablaListadoEntrega" class="table table-bordered table-sm">
+                        <thead>
+                            <tr>
+                                <th>RNTT</th>
+                                <th>CHOFER</th>
+                                <th>CÉDULA</th>
+                                <th>LISTA</th>
+                                <th>PUNTOS</th>
+                                <th>CAMPAÑA</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.Recompensas)
+                            {
+                                <tr>
+                                    <td>@item.RNTT</td>
+                                    <td>@item.CHOFER</td>
+                                    <td>@item.CEDULA</td>
+                                    <td>@Html.Raw(Html.Encode(string.Join("\n", item.listRecompensas)))</td>
+                                    <td>@item.PUNTOS_RECOMEPENSAS_T</td>
+                                    <td>@item.CAMPANIA</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>*@
+            </div>
+        </div>
+
+
+
+    </div>
+</div>
+
+@*<div class="container" style="background-color:white;">
+        <table id="tableRecompensasCanjeadas" class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Recompensa</th>
+                    <th>Valor Puntos</th>
+                    <th>Eliminar</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>*@
+@section Scripts {
+    @*<link href="~/Content/select-beauty-css.css" rel="stylesheet" />
+        <script src="~/Scripts/app/select-beauty.js"></script>*@
+    <link href="~/Content/slimselect.css" rel="stylesheet" />
+
+    <script src="~/Scripts/app/slimselect.js"></script>
+
+    <link href="~/Content/DataTables/media/css/jquery.dataTables.min.css" rel="stylesheet" />
+    <link href="~/Content/DataTables/media/css/dataTables.bootstrap4.min.css" rel="stylesheet" />
+    <link href="~/Content/DataTables/extensions/Buttons/css/buttons.dataTables.min.css" rel="stylesheet" />
+
+
+    <script src="~/Scripts/DataTables/media/js/jquery.dataTables.min.js"></script>
+    <script src="~/Scripts/DataTables/media/js/dataTables.bootstrap4.min.js"></script>
+    <script src="~/Scripts/DataTables/extensions/Buttons/js/dataTables.buttons.min.js"></script>
+
+    <script src="~/Scripts/DataTables/extensions/JSZip/jszip.min.js"></script>
+
+
+    <script src="~/Scripts/DataTables/extensions/Buttons/js/buttons.html5.min.js"></script>
+
+    @*<script src="scripts/buttons_html5_min.js"></script>*@
+    <script>
+        $(document).ready(function () {
+
+            x = new SlimSelect({
+                select: '#recompensas',
+                placeholder: 'Recompensas',
+                showSearch: false
+            });
+
+            GETCHOFERES = "@Url.Action("GetChoferes", "Recompensas")"
+            GETRECOMPENSA = "@Url.Action("GetRecompensa", "Recompensas")"
+            ENTREGARRECOMPENSA = "@Url.Action("EntregarRecompensa", "Recompensas")"
+            //GETRECOMPENSAS = "@Url.Action("GetRecompensas", "Admin")"
+            RELOADDATA = "@Url.Action("Index", "Recompensas")"
+            GETLISTADOENTREGARECOMPENSAS = "@Url.Action("GetListadoEntregaRecompensas", "Recompensas")"
+            console.log(GETLISTADOENTREGARECOMPENSAS);
+           
+            $('#campanasSelect').on('change', function () {
+                let campania = $(this).val(); console.log(campania);
+
+                //$.get(GETLISTADOENTREGARECOMPENSAS, { campania: campania }).done(data){
+
+                //};
+
+                $.get( GETLISTADOENTREGARECOMPENSAS, { campania: campania } )
+                    .done(function (data) {
+                        $('#lista_de_recompensas').empty();
+                        $('#lista_de_recompensas').append(data);
+                        $('#TablaListadoEntrega').DataTable();
+                         
+                });
+
+
+            //    "processing": true,
+            //    "ajax": {
+            //        "url": GETLISTADOENTREGARECOMPENSAS,
+            //        "type": "GET",
+            //        "data": { campania: campania }//,
+            //        //"datatype": "json"
+            //    },
+            //    //"columns": [
+            //    //     { "data": "RNTT" },
+            //    //     { "data": "CHOFER" },
+            //    //     { "data": "CEDULA" },
+            //    //     {"data": "listRecompensas"},
+            //    //     { "data": "PUNTOS" }
+            //    //],
+            //    "dom": 'Bfrtip',
+            //    "buttons": [
+            //{
+            //    extend: 'excelHtml5',
+            //    text: '<i class="fa fa-file-excel-o"></i> Excel',
+            //    className: "btn btn-success btn-lg",
+            //    customize: function (xlsx) {
+            //        var sheet = xlsx.xl.worksheets['sheet1.xml'];
+
+            //    }
+
+
+            //}
+            //    ],
+            //    "lengthMenu": [[20]]
+            //});
+            });
+
+
+
+
+
+        });
+
+    </script>
+}

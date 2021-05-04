@@ -1,0 +1,67 @@
+﻿@{
+    ViewBag.Title = "Home";
+}
+
+<div class="container text-center mt-5">
+    <div class="row">
+        <div class="col-md-6 col-lg-4 col-sm-6 mt-4">
+            <a class="btn btn-outline-primary" style="padding:15px;" href="@Url.Action("Index", "RegistroIncidencias")">
+                <div class="iconos">
+                    <i class="fa fa-book fa-fw fa-5x" aria-hidden="true"></i>
+                    <br /><br />
+                    <strong class="mt-1">Registrar Incidencia</strong>                 
+                    <br />Registro de Infracciones
+                    <br />de choferes.
+                </div>
+            </a>
+        </div>
+        <div class="col-md-6 col-lg-4 col-sm-6 mt-4">
+            <a class="btn btn-outline-info" style="padding:15px;" href="@Url.Action("Index", "Reportes")">
+                <div class="iconos">
+                    <i class="fa fa-list-alt fa-fw fa-5x" aria-hidden="true"></i>
+                    <br />
+                    <strong>Reportes</strong>
+                    <br />Reportes filtrados por fecha,
+                    <br />chofer, rótulo y
+                    <br />tipo de infracción.
+                </div>
+            </a>
+        </div>
+        <div class="col-md-6 col-lg-4 col-sm-6 mt-4">
+            <a class="btn btn-outline-danger" style="padding:15px;" href="@Url.Action("Index", "Admin")">
+                <div class="iconos">
+                    <i class="fa fa-cogs fa-fw fa-5x" aria-hidden="true"></i>
+                    <br />
+                    <strong>Administración</strong>  
+                    <br />Acceso a la configuración
+                    <br />y opciones
+                    <br />de la aplicación.
+                </div>
+            </a>
+        </div>
+        <div class="col-md-6 col-lg-4 col-sm-6 mt-4">
+            <a class="btn btn-outline-success" style="padding:15px;" href="@Url.Action("Index", "Recompensas")">
+                <div class="iconos">
+                    <i class="fa fa-gift fa-fw fa-5x" aria-hidden="true"></i>
+                    <br />
+                    <strong>Recompensas</strong>
+                    <br />Distribución de
+                    <br />Recompensas.
+                </div>
+            </a>
+        </div> 
+    </div>
+    @*<div class="row mt-5">
+        <div class="col-md-4">
+            <a class="btn btn-outline-success" style="padding:15px;" href="@Url.Action("Index", "Recompensas")">
+                <div class="iconos">
+                    <i class="fa fa-gift fa-fw fa-5x" aria-hidden="true"></i>
+                    <br />
+                    <strong>Recompensas</strong>
+                    <br />Distribución de
+                    <br />Recompensas.
+                </div>
+            </a>
+        </div>      
+    </div>*@
+</div>

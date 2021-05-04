@@ -1,0 +1,58 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Contro3am</title>
+</head>
+<body>
+    <div>
+        <input id="txtID" class="form-control" type="text" />
+        <button id="btnAlert" class="btn btn-success" type="button">GUARDAR</button>
+
+        <h1 id="title"></h1>
+    </div>
+    <script src="~/Scripts/jquery-3.0.0.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var user;
+
+            $('#txtID').on('input', function () {
+                var input = $(this).val();
+                console.log(input);
+                switch (input) {
+                    case "3819":
+                        user = "Milton Ojeda";
+                        break;
+                    case "12507":
+                        user = "Joe Veloz";
+                        break;
+                    case "3860":
+                        user = "Jabes Rivas"
+                        break;
+                    case "3909":
+                        user = "Mario";
+                        break;
+                    case "3193":
+                        user = "Ernesto Tejeda";
+                        break;
+                    default:
+                        user = "404";
+                }
+                $("#title").text(user);
+            });
+            $("#btnAlert").click(function () {
+                alert("Guardado");
+                $("#title").text("");
+                $("#txtID").val("");
+            });
+
+        });
+    </script>
+</body>
+</html>

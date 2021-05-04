@@ -1,0 +1,70 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29519.87
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LoyaltyProgram", "LoyaltyProgram\LoyaltyProgram.csproj", "{D0223A93-6C85-487B-AF32-E7B953F935D7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BLL", "BLL\BLL.csproj", "{9A10EA69-2F31-4BF8-9122-2ABB764B4B55}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LoyaltyMovil", "LoyaltyMovil\LoyaltyMovil.csproj", "{A462C652-2D37-43CD-9B96-ACFBE9052B9C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LoyaltyPointAutomation", "LoyaltyPointAutomation\LoyaltyPointAutomation.csproj", "{2E93B278-EE89-456B-B5A3-CAE56DD635E1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LoyaltyAnnualReset", "LoyaltyAnnualReset\LoyaltyAnnualReset.csproj", "{028D2AF1-DD61-401F-923C-793688013671}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D0223A93-6C85-487B-AF32-E7B953F935D7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D0223A93-6C85-487B-AF32-E7B953F935D7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D0223A93-6C85-487B-AF32-E7B953F935D7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D0223A93-6C85-487B-AF32-E7B953F935D7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9A10EA69-2F31-4BF8-9122-2ABB764B4B55}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9A10EA69-2F31-4BF8-9122-2ABB764B4B55}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9A10EA69-2F31-4BF8-9122-2ABB764B4B55}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9A10EA69-2F31-4BF8-9122-2ABB764B4B55}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A462C652-2D37-43CD-9B96-ACFBE9052B9C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A462C652-2D37-43CD-9B96-ACFBE9052B9C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A462C652-2D37-43CD-9B96-ACFBE9052B9C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A462C652-2D37-43CD-9B96-ACFBE9052B9C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2E93B278-EE89-456B-B5A3-CAE56DD635E1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2E93B278-EE89-456B-B5A3-CAE56DD635E1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2E93B278-EE89-456B-B5A3-CAE56DD635E1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2E93B278-EE89-456B-B5A3-CAE56DD635E1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{028D2AF1-DD61-401F-923C-793688013671}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{028D2AF1-DD61-401F-923C-793688013671}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{028D2AF1-DD61-401F-923C-793688013671}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{028D2AF1-DD61-401F-923C-793688013671}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {9334795E-66E9-4B2C-B368-DAA587A40B9B}
+	EndGlobalSection
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 6
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = http://dps1sr350204:8080/tfs/defaultcollection
+		SccLocalPath0 = .
+		SccProjectUniqueName1 = LoyaltyProgram\\LoyaltyProgram.csproj
+		SccProjectName1 = LoyaltyProgram
+		SccLocalPath1 = LoyaltyProgram
+		SccProjectUniqueName2 = BLL\\BLL.csproj
+		SccProjectName2 = BLL
+		SccLocalPath2 = BLL
+		SccProjectUniqueName3 = LoyaltyMovil\\LoyaltyMovil.csproj
+		SccProjectName3 = LoyaltyMovil
+		SccLocalPath3 = LoyaltyMovil
+		SccProjectUniqueName4 = LoyaltyPointAutomation\\LoyaltyPointAutomation.csproj
+		SccProjectName4 = LoyaltyPointAutomation
+		SccLocalPath4 = LoyaltyPointAutomation
+		SccProjectUniqueName5 = LoyaltyAnnualReset\\LoyaltyAnnualReset.csproj
+		SccProjectName5 = LoyaltyAnnualReset
+		SccLocalPath5 = LoyaltyAnnualReset
+	EndGlobalSection
+EndGlobal
