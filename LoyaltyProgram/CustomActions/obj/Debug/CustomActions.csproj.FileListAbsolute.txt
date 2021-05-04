@@ -1,0 +1,13 @@
+C:\tfs\CaucedoBase\CustomActions\bin\Debug\CustomActions.dll
+C:\tfs\CaucedoBase\CustomActions\bin\Debug\CustomActions.pdb
+C:\tfs\CaucedoBase\CustomActions\bin\Debug\Caucedo.Base.Common.dll
+C:\tfs\CaucedoBase\CustomActions\bin\Debug\Caucedo.Base.SqlSvr.DAL.dll
+C:\tfs\CaucedoBase\CustomActions\bin\Debug\GenericParsing.dll
+C:\tfs\CaucedoBase\CustomActions\bin\Debug\Caucedo.Base.Common.pdb
+C:\tfs\CaucedoBase\CustomActions\bin\Debug\Caucedo.Base.SqlSvr.DAL.pdb
+C:\tfs\CaucedoBase\CustomActions\bin\Debug\GenericParsing.pdb
+C:\tfs\CaucedoBase\CustomActions\bin\Debug\GenericParsing.xml
+C:\tfs\CaucedoBase\CustomActions\obj\Debug\CustomActions.csprojAssemblyReference.cache
+C:\tfs\CaucedoBase\CustomActions\obj\Debug\CustomActions.csproj.CopyComplete
+C:\tfs\CaucedoBase\CustomActions\obj\Debug\CustomActions.dll
+C:\tfs\CaucedoBase\CustomActions\obj\Debug\CustomActions.pdb

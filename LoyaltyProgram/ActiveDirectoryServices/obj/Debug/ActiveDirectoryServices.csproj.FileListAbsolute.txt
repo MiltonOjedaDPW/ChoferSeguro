@@ -1,0 +1,8 @@
+C:\tfs\CaucedoBase\ActiveDirectoryServices\bin\Debug\ActiveDirectoryServices.dll.config
+C:\tfs\CaucedoBase\ActiveDirectoryServices\bin\Debug\ActiveDirectoryServices.dll
+C:\tfs\CaucedoBase\ActiveDirectoryServices\bin\Debug\ActiveDirectoryServices.pdb
+C:\tfs\CaucedoBase\ActiveDirectoryServices\obj\Debug\ActiveDirectoryServices.dll
+C:\tfs\CaucedoBase\ActiveDirectoryServices\obj\Debug\ActiveDirectoryServices.pdb
+C:\tfs\Shared\Bin\ActiveDirectoryServices.dll.config
+C:\tfs\Shared\Bin\ActiveDirectoryServices.dll
+C:\tfs\Shared\Bin\ActiveDirectoryServices.pdb

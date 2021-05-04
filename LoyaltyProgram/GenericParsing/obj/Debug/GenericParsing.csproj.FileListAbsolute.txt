@@ -1,0 +1,5 @@
+C:\tfs\Shared\Bin\GenericParsing.XML
+C:\tfs\Shared\Bin\GenericParsing.dll
+C:\tfs\Shared\Bin\GenericParsing.pdb
+C:\tfs\CaucedoBase\GenericParsing\obj\Debug\GenericParsing.dll
+C:\tfs\CaucedoBase\GenericParsing\obj\Debug\GenericParsing.pdb

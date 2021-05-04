@@ -1,0 +1,4 @@
+C:\tfs\Shared\Bin\DataGridViewAutoFilter.dll
+C:\tfs\Shared\Bin\DataGridViewAutoFilter.pdb
+C:\tfs\CaucedoBase\DataGridViewAutoFilter\obj\Debug\DataGridViewAutoFilter.dll
+C:\tfs\CaucedoBase\DataGridViewAutoFilter\obj\Debug\DataGridViewAutoFilter.pdb

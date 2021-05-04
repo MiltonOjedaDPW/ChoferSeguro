@@ -1,0 +1,6 @@
+C:\tfs\Shared\Bin\Caucedo.Base.Common.dll
+C:\tfs\Shared\Bin\Caucedo.Base.Common.pdb
+C:\tfs\CaucedoBase\Common\obj\Debug\Common.csprojAssemblyReference.cache
+C:\tfs\CaucedoBase\Common\obj\Debug\Common.csproj.CopyComplete
+C:\tfs\CaucedoBase\Common\obj\Debug\Caucedo.Base.Common.dll
+C:\tfs\CaucedoBase\Common\obj\Debug\Caucedo.Base.Common.pdb

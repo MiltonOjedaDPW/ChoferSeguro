@@ -1,0 +1,6 @@
+C:\tfs\Shared\Bin\Caucedo.Base.Oracle.DAL.dll
+C:\tfs\Shared\Bin\Caucedo.Base.Oracle.DAL.pdb
+C:\tfs\CaucedoBase\OracleDAL\obj\Debug\OracleDAL.csproj.CopyComplete
+C:\tfs\CaucedoBase\OracleDAL\obj\Debug\Caucedo.Base.Oracle.DAL.dll
+C:\tfs\CaucedoBase\OracleDAL\obj\Debug\Caucedo.Base.Oracle.DAL.pdb
+C:\tfs\CaucedoBase\OracleDAL\obj\Debug\OracleDAL.csprojAssemblyReference.cache

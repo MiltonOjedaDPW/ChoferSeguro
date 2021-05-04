@@ -1,0 +1,6 @@
+C:\tfs\Shared\Bin\Caucedo.Base.SqlSvr.DAL.dll
+C:\tfs\Shared\Bin\Caucedo.Base.SqlSvr.DAL.pdb
+C:\tfs\CaucedoBase\SQLDAL\obj\Debug\SQLDAL.csprojAssemblyReference.cache
+C:\tfs\CaucedoBase\SQLDAL\obj\Debug\SQLDAL.csproj.CopyComplete
+C:\tfs\CaucedoBase\SQLDAL\obj\Debug\Caucedo.Base.SqlSvr.DAL.dll
+C:\tfs\CaucedoBase\SQLDAL\obj\Debug\Caucedo.Base.SqlSvr.DAL.pdb

@@ -1,0 +1,4 @@
+C:\tfs\CaucedoBase\Controles\bin\Debug\Caucedo.Windows.Controles.dll
+C:\tfs\CaucedoBase\Controles\bin\Debug\Caucedo.Windows.Controles.pdb
+C:\tfs\CaucedoBase\Controles\obj\Debug\Caucedo.Windows.Controles.dll
+C:\tfs\CaucedoBase\Controles\obj\Debug\Caucedo.Windows.Controles.pdb

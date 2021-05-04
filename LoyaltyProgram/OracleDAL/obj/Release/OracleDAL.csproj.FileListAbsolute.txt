@@ -1,0 +1,7 @@
+C:\tfs\CaucedoBase\OracleDAL\bin\Release\Caucedo.Base.Oracle.DAL.dll
+C:\tfs\CaucedoBase\OracleDAL\bin\Release\Caucedo.Base.Oracle.DAL.pdb
+C:\tfs\CaucedoBase\OracleDAL\bin\Release\Oracle.DataAccess.dll
+C:\tfs\CaucedoBase\OracleDAL\obj\Release\OracleDAL.csprojAssemblyReference.cache
+C:\tfs\CaucedoBase\OracleDAL\obj\Release\OracleDAL.csproj.CopyComplete
+C:\tfs\CaucedoBase\OracleDAL\obj\Release\Caucedo.Base.Oracle.DAL.dll
+C:\tfs\CaucedoBase\OracleDAL\obj\Release\Caucedo.Base.Oracle.DAL.pdb
